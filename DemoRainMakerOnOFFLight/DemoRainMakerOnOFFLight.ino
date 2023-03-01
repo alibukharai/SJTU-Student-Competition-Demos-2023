@@ -12,6 +12,10 @@ const char *pop = "abcd1234";
 static int gpio_0 = 9;
 #define RGB_BUILTIN LED_BUILTIN
 static int gpio_bulb = RGB_BUILTIN;
+#else 
+//GPIO for virtual device
+static int gpio_0 = 0;
+static int gpio_bulb = 16;
 #endif
 
 /* Variable for reading pin status*/
