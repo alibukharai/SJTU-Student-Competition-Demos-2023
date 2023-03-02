@@ -1,0 +1,7 @@
+{
+    "configuration": "JTAGAdapter=default,CDCOnBoot=default,PartitionScheme=rainmaker,CPUFreq=160,FlashMode=qio,FlashFreq=80,FlashSize=4M,UploadSpeed=921600,DebugLevel=info,EraseFlash=none",
+    "board": "esp32:esp32:esp32c3",
+    "sketch": "DemoRainMakerOnOFFLight/DemoRainMakerOnOFFLight.ino",
+    "programmer": "esptool",
+    "port": "/dev/ttyUSB0"
+}

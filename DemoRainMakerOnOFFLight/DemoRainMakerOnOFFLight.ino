@@ -10,13 +10,14 @@ const char *pop = "abcd1234";
 //GPIO for push button to reset the wifi if needed
 #if CONFIG_IDF_TARGET_ESP32C3
 static int gpio_0 = 9;
-#define RGB_BUILTIN LED_BUILTIN
-static int gpio_bulb = RGB_BUILTIN;
-#else 
+static int gpio_bulb = LED_BUILTIN;
+
+#else
 //GPIO for virtual device
 static int gpio_0 = 0;
 static int gpio_bulb = 16;
 #endif
+
 
 /* Variable for reading pin status*/
 bool bulb_state = true;
@@ -53,9 +54,9 @@ void write_callback(Device *device, Param *param, const param_val_t val, void *p
     Serial.printf("Received value = %s for %s - %s\n", val.val.b ? "true" : "false", device_name, param_name);
     bulb_state = val.val.b;
     if (bulb_state == false) {
-      digitalWrite(RGB_BUILTIN, LOW);
+      digitalWrite(gpio_bulb, LOW);
     } else {
-      digitalWrite(RGB_BUILTIN, HIGH);
+      digitalWrite(gpio_bulb, HIGH);
     }
     param->updateAndReport(val);
   }
@@ -63,8 +64,7 @@ void write_callback(Device *device, Param *param, const param_val_t val, void *p
 
 void setup() {
   Serial.begin(115200);
-  pinMode(gpio_0, INPUT);
-  digitalWrite(RGB_BUILTIN, LOW);
+  pinMode(gpio_0, INPUT | PULLUP);
 
   Node my_node;
   my_node = RMaker.initNode("ESP RainMaker Node");
@@ -101,11 +101,11 @@ void setup() {
 }
 
 void loop() {
-  if (digitalRead(gpio_0) == HIGH) {  //Push button pressed for reset wifi or factory reset
+  if (digitalRead(gpio_0) == LOW) {  //Push button pressed for reset wifi or factory reset
     // Key debounce handling
     delay(100);
     int startTime = millis();
-    while (digitalRead(gpio_0) == HIGH) {
+    while (digitalRead(gpio_0) == LOW) {
       Serial.print("Button is Pressed\n");
       delay(50);
     }
@@ -120,7 +120,7 @@ void loop() {
       // If key pressed for more than 3secs, but less than 10, reset Wi-Fi
       RMakerWiFiReset(2);
     } else {
-      Serial.print("Nothing\n");
+      Serial.print("First Connect to the Wifi\n");
       delay(10);
     }
   } else {
