@@ -66,9 +66,10 @@ The demo example illustrates the process of creating a light bulb device that ca
 - Partition Scheme: “RainMaker”
 - Core Debug Level: “Info”
 
-1. Before commissioning a device Forget the previously connected device with same name in the Bluetooth settings of your mobile phone, as failure to do so may result in errors.
+2. Before commissioning a device Forget the previously connected device with same name in the Bluetooth settings of your mobile phone, as failure to do so may result in errors.
 
-2. Prior to sharing your internet connection, please ensure that your phone is connected to the same network as the device(s) with which you intend to share the connection.
+3. Prior to sharing your internet connection, please ensure that your phone is connected to the same network as the device(s) with which you intend to share the connection.
+4. Enable erase flash before uploading new sketch 
 
 # Helpful resources 
 
